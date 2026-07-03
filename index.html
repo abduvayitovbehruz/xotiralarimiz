@@ -9,7 +9,6 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-
 <div id="watermark"></div>
 <div id="screenshot-overlay"></div>
 <div id="hearts-container"></div>
@@ -26,166 +25,234 @@
   </div>
 </div>
 
-<!-- XUSH KELIBSIZ -->
+<!-- WELCOME -->
 <div id="welcome-screen" style="display:none">
   <div class="welcome-content">
     <div class="welcome-hearts">💕</div>
-    <h2>Xush kelibsiz,</h2>
+    <h2>Xush kelibsiz</h2>
     <h1 id="welcome-name"></h1>
     <p>Sevgi bilan to'ldirilgan joyga</p>
-    <div class="welcome-hearts2">💖 💗 💝</div>
+    <div class="welcome-dots">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </div>
 
 <!-- NO ACCESS -->
-<div id="no-access" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:50;align-items:center;justify-content:center;text-align:center;padding:30px">
-  <div>
-    <div style="font-size:64px;margin-bottom:16px">🚫</div>
-    <h2 style="color:var(--accent);margin-bottom:10px">Kirish taqiqlangan</h2>
-    <p style="color:var(--text2)">Bu sahifa faqat maxsus foydalanuvchilar uchun</p>
+<div id="no-access" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:50;display:none;align-items:center;justify-content:center;text-align:center;padding:30px">
+  <div class="no-access-card">
+    <div class="icon">🚫</div>
+    <h2>Kirish taqiqlangan</h2>
+    <p>Bu sahifa faqat maxsus foydalanuvchilar uchun</p>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app" style="display:none">
-
-  <!-- VISITOR BANNER -->
   <div id="visitor-banner" style="display:none">
     <div class="visitor-info">
-      <span>👤</span><span id="visitor-text"></span>
+      <div class="visitor-dot"></div>
+      <span id="visitor-text"></span>
     </div>
   </div>
 
   <nav class="nav">
-    <div class="nav-brand">✨ Xotiralarimiz</div>
-    <div class="nav-user" id="nav-user"></div>
+    <div class="nav-top">
+      <div class="nav-brand">✨ Xotiralarimiz</div>
+      <div class="nav-user" id="nav-user">
+        <div class="nav-user-dot"></div>
+        <span id="nav-user-name"></span>
+      </div>
+    </div>
     <div class="nav-tabs">
       <button class="tab active" data-tab="xotiralar">💕 Xotiralar</button>
       <button class="tab" data-tab="gallery">🖼 Gallery</button>
       <button class="tab" data-tab="kundalik">📝 Kundalik</button>
-      <button class="tab" data-tab="users" id="tab-users" style="display:none">👥 Odamlar</button>
+      <button class="tab" data-tab="users" id="tab-users" style="display:none">👥 Do'stlar</button>
     </div>
   </nav>
 
-  <!-- XOTIRALAR -->
-  <section class="page active" id="page-xotiralar">
-    <div class="page-header">
-      <h2>Xotiralar 💕</h2>
-      <button class="btn-add" id="btn-add-xotira">+ Yangi</button>
-    </div>
-    <div class="scroll-area" id="xotiralar-list"></div>
-    <div class="empty" id="xotiralar-empty">
-      <div class="empty-icon">💝</div>
-      <p>Hali xotiralar yo'q<br/>Birinchi xotirangizni qo'shing!</p>
-    </div>
-  </section>
+  <div id="main-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
 
-  <!-- GALLERY -->
-  <section class="page" id="page-gallery">
-    <div class="page-header">
-      <h2>Rasmlarimiz 🖼</h2>
-      <button class="btn-add" id="btn-add-rasm">+ Qo'shish</button>
-    </div>
-    <div class="gallery-grid" id="gallery-grid"></div>
-    <div class="empty" id="gallery-empty">
-      <div class="empty-icon">🌸</div><p>Hali rasmlar yo'q</p>
-    </div>
-  </section>
+    <!-- XOTIRALAR -->
+    <section class="page active" id="page-xotiralar">
+      <div class="page-header">
+        <h2>Xotiralar 💕</h2>
+        <button class="btn-add" id="btn-add-xotira">+ Yangi</button>
+      </div>
+      <div class="scroll-area" id="xotiralar-list"></div>
+      <div class="empty" id="xotiralar-empty">
+        <div class="empty-icon">💝</div>
+        <p>Hali xotiralar yo'q<br/>Birinchi xotirangizni qo'shing!</p>
+      </div>
+    </section>
 
-  <!-- KUNDALIK -->
-  <section class="page" id="page-kundalik">
-    <div class="page-header">
-      <h2>Kundalik 📝</h2>
-      <button class="btn-add" id="btn-add-kun">+ Yozuv</button>
-    </div>
-    <div class="scroll-area" id="kundalik-list"></div>
-    <div class="empty" id="kundalik-empty">
-      <div class="empty-icon">📖</div><p>Hali yozuvlar yo'q</p>
-    </div>
-  </section>
+    <!-- GALLERY -->
+    <section class="page" id="page-gallery">
+      <div class="page-header">
+        <h2>Rasmlarimiz 🖼</h2>
+        <button class="btn-add" id="btn-add-rasm">+ Qo'shish</button>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="empty" id="gallery-empty">
+        <div class="empty-icon">🌸</div>
+        <p>Hali rasmlar yo'q</p>
+      </div>
+    </section>
 
-  <!-- USERS (admin only) -->
-  <section class="page" id="page-users">
-    <div class="page-header">
-      <h2>Foydalanuvchilar 👥</h2>
-      <button class="btn-add" id="btn-add-user">+ Qo'shish</button>
-    </div>
-    <div class="scroll-area" id="users-list"></div>
-  </section>
+    <!-- KUNDALIK -->
+    <section class="page" id="page-kundalik">
+      <div class="page-header">
+        <h2>Kundalik 📝</h2>
+        <button class="btn-add" id="btn-add-kun">+ Yozuv</button>
+      </div>
+      <div class="scroll-area" id="kundalik-list"></div>
+      <div class="empty" id="kundalik-empty">
+        <div class="empty-icon">📖</div>
+        <p>Hali yozuvlar yo'q</p>
+      </div>
+    </section>
 
+    <!-- USERS (admin only) -->
+    <section class="page" id="page-users">
+      <div class="page-header">
+        <h2>Do'stlar ro'yxati 👥</h2>
+        <button class="btn-add" id="btn-add-user">+ Qo'shish</button>
+      </div>
+      <div class="scroll-area" id="users-list"></div>
+    </section>
+
+  </div>
 </div>
 
 <!-- MODAL: Xotira -->
 <div class="modal-overlay" id="modal-xotira">
   <div class="modal">
-    <div class="modal-header"><h3>💕 Yangi xotira</h3><button class="modal-close" data-modal="modal-xotira">✕</button></div>
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>💕 Yangi xotira</h3>
+      <button class="modal-close" data-modal="modal-xotira">✕</button>
+    </div>
     <div class="modal-body">
-      <label>Sarlavha *</label><input type="text" id="x-title" placeholder="Birinchi uchrashuv..."/>
-      <label>Sana</label><input type="date" id="x-date"/>
-      <label>Joy</label><input type="text" id="x-place" placeholder="Toshkent..."/>
-      <label>Tavsif</label><textarea id="x-desc" rows="3" placeholder="O'sha kunda..."></textarea>
+      <label>Sarlavha *</label>
+      <input type="text" id="x-title" placeholder="Birinchi uchrashuv..."/>
+      <label>Sana</label>
+      <input type="date" id="x-date"/>
+      <label>Joy</label>
+      <input type="text" id="x-place" placeholder="Toshkent..."/>
+      <label>Tavsif</label>
+      <textarea id="x-desc" rows="3" placeholder="O'sha kunda..."></textarea>
       <label>Rasm / Video</label>
-      <div class="file-drop" id="x-drop"><div class="file-drop-icon">📎</div><div>Bosing yoki sudrab tashlang</div><input type="file" id="x-file" accept="image/*,video/*" style="display:none"/></div>
+      <div class="file-drop" id="x-drop">
+        <div class="file-drop-icon">📎</div>
+        <div>Bosing yoki sudrab tashlang</div>
+        <input type="file" id="x-file" accept="image/*,video/*" style="display:none"/>
+      </div>
       <div id="x-preview" class="file-preview"></div>
     </div>
-    <div class="modal-footer"><button class="btn-cancel" data-modal="modal-xotira">Bekor</button><button class="btn-save" id="save-xotira">Saqlash 💾</button></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" data-modal="modal-xotira">Bekor</button>
+      <button class="btn-save" id="save-xotira">Saqlash 💾</button>
+    </div>
   </div>
 </div>
 
 <!-- MODAL: Gallery -->
 <div class="modal-overlay" id="modal-rasm">
   <div class="modal">
-    <div class="modal-header"><h3>🖼 Media qo'shish</h3><button class="modal-close" data-modal="modal-rasm">✕</button></div>
-    <div class="modal-body">
-      <label>Rasm / Video (bir nechta)</label>
-      <div class="file-drop" id="g-drop"><div class="file-drop-icon">🖼</div><div>Bosing yoki sudrab tashlang</div><input type="file" id="g-file" accept="image/*,video/*" multiple style="display:none"/></div>
-      <div id="g-preview" class="file-preview"></div>
-      <label>Tavsif</label><input type="text" id="g-desc" placeholder="Bu haqida..."/>
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>🖼 Media qo'shish</h3>
+      <button class="modal-close" data-modal="modal-rasm">✕</button>
     </div>
-    <div class="modal-footer"><button class="btn-cancel" data-modal="modal-rasm">Bekor</button><button class="btn-save" id="save-rasm">Qo'shish</button></div>
+    <div class="modal-body">
+      <label>Rasm / Video</label>
+      <div class="file-drop" id="g-drop">
+        <div class="file-drop-icon">🖼</div>
+        <div>Bosing yoki sudrab tashlang</div>
+        <input type="file" id="g-file" accept="image/*,video/*" multiple style="display:none"/>
+      </div>
+      <div id="g-preview" class="file-preview"></div>
+      <label>Tavsif</label>
+      <input type="text" id="g-desc" placeholder="Bu haqida..."/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" data-modal="modal-rasm">Bekor</button>
+      <button class="btn-save" id="save-rasm">Qo'shish</button>
+    </div>
   </div>
 </div>
 
 <!-- MODAL: Kundalik -->
 <div class="modal-overlay" id="modal-kundalik">
   <div class="modal">
-    <div class="modal-header"><h3>📝 Kundalik</h3><button class="modal-close" data-modal="modal-kundalik">✕</button></div>
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>📝 Kundalik</h3>
+      <button class="modal-close" data-modal="modal-kundalik">✕</button>
+    </div>
     <div class="modal-body">
-      <label>Sana</label><input type="date" id="k-date"/>
+      <label>Sana</label>
+      <input type="date" id="k-date"/>
       <label>Kayfiyat</label>
       <div class="mood-row">
-        <button class="mood" data-mood="😊">😊</button><button class="mood" data-mood="😍">😍</button>
-        <button class="mood" data-mood="🥰">🥰</button><button class="mood" data-mood="😢">😢</button>
-        <button class="mood" data-mood="😴">😴</button><button class="mood" data-mood="🤩">🤩</button>
+        <button class="mood" data-mood="😊">😊</button>
+        <button class="mood" data-mood="😍">😍</button>
+        <button class="mood" data-mood="🥰">🥰</button>
+        <button class="mood" data-mood="😢">😢</button>
+        <button class="mood" data-mood="😴">😴</button>
+        <button class="mood" data-mood="🤩">🤩</button>
       </div>
-      <label>Bugun nima bo'ldi?</label><textarea id="k-text" rows="5" placeholder="His-tuyg'ularingiz..."></textarea>
+      <label>Bugun nima bo'ldi?</label>
+      <textarea id="k-text" rows="5" placeholder="His-tuyg'ularingiz..."></textarea>
     </div>
-    <div class="modal-footer"><button class="btn-cancel" data-modal="modal-kundalik">Bekor</button><button class="btn-save" id="save-kundalik">Saqlash 💾</button></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" data-modal="modal-kundalik">Bekor</button>
+      <button class="btn-save" id="save-kundalik">Saqlash 💾</button>
+    </div>
   </div>
 </div>
 
 <!-- MODAL: User qo'shish -->
 <div class="modal-overlay" id="modal-user">
   <div class="modal">
-    <div class="modal-header"><h3>👤 Foydalanuvchi qo'shish</h3><button class="modal-close" data-modal="modal-user">✕</button></div>
-    <div class="modal-body">
-      <label>Ism *</label><input type="text" id="u-name" placeholder="Azizam..."/>
-      <label>Telegram ID *</label><input type="number" id="u-id" placeholder="123456789"/>
-      <p style="font-size:12px;color:var(--text2);margin-top:10px">ID ni bilish uchun @userinfobot ga /start yuboring</p>
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>👤 Do'st qo'shish</h3>
+      <button class="modal-close" data-modal="modal-user">✕</button>
     </div>
-    <div class="modal-footer"><button class="btn-cancel" data-modal="modal-user">Bekor</button><button class="btn-save" id="save-user">Qo'shish ✅</button></div>
+    <div class="modal-body">
+      <label>Ism *</label>
+      <input type="text" id="u-name" placeholder="Azizam..."/>
+      <label>Telegram ID *</label>
+      <input type="number" id="u-id" placeholder="123456789"/>
+      <p style="font-size:12px;color:var(--text2);margin-top:12px;line-height:1.6">
+        💡 ID ni bilish uchun do'stingiz @userinfobot ga <b>/start</b> yubortiring
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" data-modal="modal-user">Bekor</button>
+      <button class="btn-save" id="save-user">Qo'shish ✅</button>
+    </div>
   </div>
 </div>
 
 <!-- MODAL: Izohlar -->
 <div class="modal-overlay" id="modal-comment">
   <div class="modal">
-    <div class="modal-header"><h3>💬 Izohlar</h3><button class="modal-close" data-modal="modal-comment">✕</button></div>
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>💬 Izohlar</h3>
+      <button class="modal-close" data-modal="modal-comment">✕</button>
+    </div>
     <div class="modal-body">
       <div class="comments-list" id="comments-list"></div>
+    </div>
+    <div style="padding:10px 16px 20px;border-top:1px solid var(--border);flex-shrink:0">
       <div class="comment-input-row">
+        <div class="ci-avatar" id="ci-avatar"></div>
         <input type="text" id="comment-input" placeholder="Izoh yozing..."/>
-        <button class="btn-send" id="btn-send-comment">➤</button>
+        <button class="btn-send" id="btn-send-comment">Jo'natish</button>
       </div>
     </div>
   </div>
@@ -195,17 +262,11 @@
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lb-close">✕</button>
   <div class="lb-content" id="lb-content"></div>
-  <div class="lb-actions"><button class="lb-download" id="lb-download">⬇ Yuklab olish</button></div>
+  <div class="lb-actions">
+    <button class="lb-download" id="lb-download">⬇ Yuklab olish</button>
+  </div>
 </div>
 
 <script src="app.js"></script>
-<script>
-  // Admin uchun "Odamlar" tabini ko'rsat
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const orig = window.showAdminPanel;
-  });
-  // Tab-users admin login dan keyin ko'rsatiladi (app.js showAdminPanel ichida)
-  const _origInit = window.initAuth;
-</script>
 </body>
 </html>
